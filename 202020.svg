@@ -1,0 +1,27 @@
+<!--
+  20-20-20: A simple web app that reminds you to give your eyes a break
+  Copyright (C) 2020 Nicolaos Skimas
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!-- This SVG serves as the reference from which all the different icons needed can be generated -->
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M0 0h512v512H0z"/>
+  <g id="a" fill="#fff">
+    <path d="M247.469 324.719h-91.031q0-12.563 7.78-24 7.782-11.438 28.5-28.125 20.813-16.781 28.5-26.719 7.688-10.031 7.688-22.688 0-11.343-6.562-17.812-6.563-6.563-18.469-6.563-10.313 0-17.625 6.563-7.313 6.563-8.25 19.313h-18.281q1.5-18.094 13.312-28.875 11.906-10.875 31.219-10.875 20.531 0 31.688 11.062 11.156 10.969 11.156 27.563 0 15-8.25 26.53-8.25 11.438-32.813 31.876-24.469 20.437-24.937 26.437h66.375zM310.75 184.938q44.813 0 44.813 71.25 0 70.875-44.813 70.875-44.719 0-44.719-70.875 0-71.25 44.719-71.25zm0 128.25q13.031 0 19.781-12.563 6.75-12.563 6.75-44.438 0-31.968-6.75-44.625-6.75-12.75-19.781-12.75-12.938 0-19.688 12.75-6.75 12.657-6.75 44.625 0 31.875 6.75 44.438 6.75 12.563 19.688 12.563z"/>
+  </g>
+  <use xlink:href="#a" transform="translate(0 -159.338)"/>
+  <use xlink:href="#a" transform="translate(0 159.338)"/>
+</svg>

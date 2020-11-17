@@ -1,0 +1,9 @@
+* eol=lf
+
+*.jpg binary
+*.png binary
+*.ico binary
+*.webp binary
+*.webm binary
+*.mp3 binary
+*.mp4 binary

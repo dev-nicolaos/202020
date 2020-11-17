@@ -1,0 +1,84 @@
+/*
+  20-20-20: A simple web app that reminds you to give your eyes a break
+  Copyright (C) 2020 Nicolaos Skimas
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+* { box-sizing: border-box; }
+
+html {
+  --black: black;
+  --white: white;
+  --theme: #4679AD;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--black);
+  color: var(--white);
+}
+
+h1, body, button, ul, li, a {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  line-height: 1;
+}
+
+a { color: var(--theme); }
+
+h1 {
+  font-size: 1.2em;
+  margin-block-end: 1rem;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+main {
+  text-align: center;
+  margin-block-start: 20vh;
+}
+
+#timer {
+  font-size: 5em;
+  margin-block-end: 2rem;
+}
+
+#control {
+  font-size: 2em;
+  padding: 5px 2rem;
+  border: none;
+  border-radius: 1rem;
+  color: var(--white);
+  background: var(--theme);
+  cursor: pointer;
+}
+
+#support { padding: 1rem; }
+
+#support ul { padding-inline-start: 1rem; }
+
+#support li + li {
+  padding-block-start: 1rem;
+}
+
+@media (min-width: 480px) {
+  main { margin-block-start: 30vh; }
+  h1 { font-size: 1.4em; }
+  #support li { font-size: 1.1em }
+}
