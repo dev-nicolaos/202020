@@ -1,2 +1,10 @@
 [build]
   publish = "src"
+
+# Redirect default Netlify subdomain to primary domain
+[[redirects]]
+  from = "https://202020-rule.netlify.app"
+  to = "https://202020.fyi"
+  status = 301
+  force = true
+

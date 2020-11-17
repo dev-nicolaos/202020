@@ -18,4 +18,6 @@
 
 # 20-20-20
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/45925dbb-2172-455d-b31b-73d915401957/deploy-status)](https://app.netlify.com/sites/202020-rule/deploys)
+
 A simple web app that reminds you to give your eyes a break
