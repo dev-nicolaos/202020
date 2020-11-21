@@ -16,7 +16,5 @@
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-export const TWENTY_MINUTES = 5000;
-// export const TWENTY_MINUTES = 1200000;
-
+export const TWENTY_MINUTES = 1200000;
 export const BROWSER_SUPPORTS_NOTIFICATIONS = Boolean(Notification && Notification.requestPermission);
