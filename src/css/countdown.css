@@ -16,69 +16,25 @@
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-* { box-sizing: border-box; }
-
-html {
-  --black: black;
-  --white: white;
-  --theme: #4679AD;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--black);
-  color: var(--white);
-}
-
-h1, body, button, ul, li, a {
-  border: none;
-  padding: 0;
-  margin: 0;
-  font-family: inherit;
-  line-height: 1;
-}
-
-a { color: var(--theme); }
-
-h1 {
-  font-size: 1.2em;
-  margin-block-end: 1rem;
-}
-
-body {
+.countdown {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-}
-
-main {
-  text-align: center;
+  align-items: center;
   margin-block-start: 20vh;
 }
 
-#timer {
+.countdown_timer {
   font-size: 5em;
   margin-block-end: 2rem;
 }
 
-#control {
-  font-size: 2em;
-  padding: 5px 2rem;
-  border: none;
-  border-radius: 1rem;
-  color: var(--white);
-  background: var(--theme);
-  cursor: pointer;
+.countdown_auto-repeat {
+  display: flex;
+  align-items: center;
 }
 
-#support { padding: 1rem; }
-
-#support ul { padding-inline-start: 1rem; }
-
-#support li + li {
-  padding-block-start: 1rem;
-}
+.countdown_auto-repeat .checkbox { margin-inline-start: .5em; }
 
 @media (min-width: 480px) {
-  main { margin-block-start: 30vh; }
-  h1 { font-size: 1.4em; }
-  #support li { font-size: 1.1em }
+  .countdown { margin-block-start: 30vh; }
 }
