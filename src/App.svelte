@@ -1,5 +1,5 @@
 <script>
-  const TWENTY_MINUTES_IN_MILLISECONDS = 12000;
+  const TWENTY_MINUTES_IN_MILLISECONDS = 1200000;
 
   let timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
   $: counting = !(timeRemaining === TWENTY_MINUTES_IN_MILLISECONDS);
@@ -95,5 +95,6 @@
     cursor: pointer;
     display: flex;
     gap: 0.8em;
+    padding: 0.5em;
   }
 </style>
