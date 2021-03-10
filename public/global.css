@@ -9,9 +9,10 @@ html, body, a, button, div, span, h1, h2, label, input, li, ul  {
 }
 
 :root {
-  --black: black;
+  --black: #000;
   --theme: #4679AD;
-  --white: white;
+  --white: #fff;
+  --default-border-radius: 0.25em;
 }
 
 html {
@@ -27,10 +28,10 @@ html, body {
 }
 
 body {
+  align-content: center;
   padding: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* TODO: use flex once gap in flex has enough support */
+  display: grid;
   gap: 3em;
 }
 
@@ -40,7 +41,7 @@ body {
   color: var(--white);
   cursor: pointer;
   padding: .5em 1em;
-  border-radius: 0.25em;
+  border-radius: var(--default-border-radius);
 }
 
 .link { color: var(--theme); }
@@ -48,50 +49,34 @@ body {
 .checkbox {
   --checkbox-size: 1.5em;
   appearance: none;
-  background: white;
+  background: var(--theme);
   block-size: var(--checkbox-size);
+  border-radius: var(--default-border-radius);
   cursor: inherit;
   display: inline-block;
   inline-size: var(--checkbox-size);
 }
 
-.checkbox:focus {
-  outline: 2px solid var(--theme);
-  outline-offset: 2px;
-}
-
 .checkbox::after {
   --checkmark-thickness: max(2px, calc(var(--checkbox-size) / 6));
   block-size: calc(var(--checkbox-size) / 4);
-  border: solid var(--theme);
+  border: solid var(--white);
   border-width: 0 0 var(--checkmark-thickness) var(--checkmark-thickness);
   content: "";
   display: inline-block;
   inline-size: calc(var(--checkbox-size) * 0.6);
   opacity: 0;
-  transform: rotate(-45deg) translate(0, calc(var(--checkbox-size) / 6));
-  transition: opacity 200ms;
+  transform: rotate(-45deg) translate(1px, calc((var(--checkbox-size) / 6) - 1px));
+  transition: opacity 150ms;
 }
+
+.checkbox:not(:checked):hover::after { opacity: 0.4 }
 
 .checkbox:checked::after { opacity: 1; }
 
-.list { list-style-position: inside; }
+.button:focus, .checkbox:focus, .link:focus {
+  box-shadow: 0 0 0 2px var(--black), 0 0 0 4px var(--white);
+  outline: none;
+}
 
 .heading { line-height: 2; }
-
-.support {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.support .heading {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-@media (min-width: 375px) {
-  .support .heading { font-size: 1.5rem; }
-}
-
-.support_item { line-height: 2; }

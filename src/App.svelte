@@ -1,40 +1,55 @@
 <script>
-  const TWENTY_MINUTES_IN_MILLISECONDS = 1200000;
+  import { requestNotificationsPermission } from "./notifications";
+  import Toast from "./Toast.svelte";
 
+  const TWENTY_MINUTES_IN_MILLISECONDS = 1200000;
+  const SUPPORTS_NOTIFICATIONS = "Notification" in window;
+
+  // STATE
   let timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
   $: counting = !(timeRemaining === TWENTY_MINUTES_IN_MILLISECONDS);
   let shouldRepeat = false;
   let frameId;
+  let showToast = false;
+  // END STATE
 
-  /**
-   * @param {number} time
-   * @returns {string}
-   */
-  const formatTime = (time) => {
-    const formattingDate = new Date(time);
-    const seconds = formattingDate.getSeconds();
-    return `${formattingDate.getMinutes()}:${
-      seconds < 10 ? `0${seconds}` : seconds
-    }`;
+  const scheduleNotification = (targetTime) => {
+    fetch("notifyServiceWorker", {
+      method: "POST",
+      body: targetTime - performance.now(),
+    });
   };
 
-  const sendNotification = () => {
-    if (Notification && Notification.permission === "granted") {
-      new Notification("It's been 20 minutes, give your eyes a break!", {
-        requireInteraction: !shouldRepeat,
-        body:
-          "Look at something 20 feet away for 20 seconds to let your eyes relax",
-      });
+  const cancelNotification = () => {
+    fetch("notifyServiceWorker", { method: "DELETE" });
+  };
+
+  const resetCountdown = (shouldCancelNotification = true) => {
+    if (SUPPORTS_NOTIFICATIONS && shouldCancelNotification) {
+      cancelNotification();
     }
-  };
-
-  const resetCountdown = () => {
     cancelAnimationFrame(frameId);
     timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
   };
 
+  const revealToast = () => {
+    showToast = true;
+  };
+
+  const hideToast = () => {
+    showToast = false;
+  };
+
   const startCountdown = () => {
     const targetTime = performance.now() + TWENTY_MINUTES_IN_MILLISECONDS;
+
+    if (SUPPORTS_NOTIFICATIONS) {
+      requestNotificationsPermission(
+        () => scheduleNotification(targetTime),
+        revealToast,
+        hideToast
+      );
+    }
 
     const count = () => {
       const diffMS = targetTime - performance.now();
@@ -42,11 +57,9 @@
         timeRemaining = diffMS;
         frameId = requestAnimationFrame(count);
       } else if (shouldRepeat) {
-        sendNotification();
         startCountdown();
       } else {
-        sendNotification();
-        resetCountdown();
+        resetCountdown(false);
       }
     };
 
@@ -58,8 +71,19 @@
       resetCountdown();
     } else {
       startCountdown();
-      if (Notification) Notification.requestPermission();
     }
+  };
+
+  /**
+   * @param {number} time
+   * @returns {string}
+   */
+  const formatTime = (time) => {
+    const formattingDate = new Date(time);
+    const seconds = formattingDate.getSeconds();
+    return `${formattingDate.getMinutes()}:${
+      seconds < 10 ? `0${seconds}` : seconds
+    }`;
   };
 </script>
 
@@ -74,12 +98,14 @@
   </label>
 </main>
 
+<Toast show={showToast} />
+
 <style>
   .countdown {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* TODO: use flex once gap in flex has enough support */
+    display: grid;
     gap: 2em;
+    justify-items: center;
   }
 
   .countdown_timer {
@@ -93,8 +119,10 @@
   .countdown_auto-repeat {
     align-items: center;
     cursor: pointer;
-    display: flex;
+    /* TODO: use flex once gap in flex has enough support */
+    display: grid;
     gap: 0.8em;
+    grid-auto-flow: column;
     padding: 0.5em;
   }
 </style>

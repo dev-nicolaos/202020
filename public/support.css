@@ -1,0 +1,18 @@
+.support {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.support .heading {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+@media (min-width: 375px) {
+  .support .heading { font-size: 1.5rem; }
+}
+
+.support_items { padding-inline-start: 1em; }
+
+.support_item { line-height: 2; }
