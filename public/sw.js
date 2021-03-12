@@ -2,10 +2,6 @@ const STATIC_CACHE_NAME = "202020-cache-v1";
 
 const STATIC_ASSET_ROUTES = [
   "/",
-  /**
-   * Comment out main.css DURING DEVELOPMENT ONLY,
-   * since snowpack dev loads component styles through JS
-   */
   "/dist/main.css",
   "/dist/main.js",
   "/favicon.ico",
@@ -26,6 +22,10 @@ const STATIC_ASSET_ROUTES = [
 const cacheStaticAssets = async () =>
   (await caches.open(STATIC_CACHE_NAME)).addAll(STATIC_ASSET_ROUTES);
 
+/**
+ * Comment out DURING DEVELOPMENT ONLY,
+ * as caching can mess with hot reloading.
+ */
 self.addEventListener("install", (event) => {
   event.waitUntil(cacheStaticAssets());
 });

@@ -1,54 +1,44 @@
 <script>
-  import { requestNotificationsPermission } from "./notifications";
-  import Toast from "./Toast.svelte";
+  import {
+    cancelNotification,
+    requestPermission,
+    scheduleNotification,
+  } from "./notifications";
+  import NotificationPrompt from "./NotificationPrompt.svelte";
 
   const TWENTY_MINUTES_IN_MILLISECONDS = 1200000;
-  const SUPPORTS_NOTIFICATIONS = "Notification" in window;
 
   // STATE
+  let frameId;
+  let hasSeenNotificationPrompt = false;
+  let shouldRepeat = false;
+  let showingNotificationPrompt = false;
   let timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
   $: counting = !(timeRemaining === TWENTY_MINUTES_IN_MILLISECONDS);
-  let shouldRepeat = false;
-  let frameId;
-  let showToast = false;
   // END STATE
 
-  const scheduleNotification = (targetTime) => {
-    fetch("notifyServiceWorker", {
-      method: "POST",
-      body: targetTime - performance.now(),
-    });
+  const hideNotificationPrompt = () => {
+    showingNotificationPrompt = false;
   };
 
-  const cancelNotification = () => {
-    fetch("notifyServiceWorker", { method: "DELETE" });
+  const handleWantsNotifications = async () => {
+    hideNotificationPrompt();
+    const permissionGranted = (await requestPermission()) == "granted";
+    if (permissionGranted && counting) scheduleNotification(timeRemaining);
   };
 
-  const resetCountdown = (shouldCancelNotification = true) => {
-    if (SUPPORTS_NOTIFICATIONS && shouldCancelNotification) {
-      cancelNotification();
-    }
+  const resetCountdown = () => {
+    cancelNotification();
     cancelAnimationFrame(frameId);
     timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
-  };
-
-  const revealToast = () => {
-    showToast = true;
-  };
-
-  const hideToast = () => {
-    showToast = false;
   };
 
   const startCountdown = () => {
     const targetTime = performance.now() + TWENTY_MINUTES_IN_MILLISECONDS;
 
-    if (SUPPORTS_NOTIFICATIONS) {
-      requestNotificationsPermission(
-        () => scheduleNotification(targetTime),
-        revealToast,
-        hideToast
-      );
+    if (scheduleNotification(targetTime) && !hasSeenNotificationPrompt) {
+      showingNotificationPrompt = true;
+      hasSeenNotificationPrompt = true;
     }
 
     const count = () => {
@@ -59,7 +49,7 @@
       } else if (shouldRepeat) {
         startCountdown();
       } else {
-        resetCountdown(false);
+        resetCountdown();
       }
     };
 
@@ -89,7 +79,7 @@
 
 <main class="countdown">
   <div class="countdown_timer">{formatTime(timeRemaining)}</div>
-  <button on:click={handleClick} class="button">
+  <button class="button" on:click={handleClick} type="button">
     {counting ? "Reset" : "Start"}
   </button>
   <label class="countdown_auto-repeat">
@@ -98,7 +88,11 @@
   </label>
 </main>
 
-<Toast show={showToast} />
+<NotificationPrompt
+  show={showingNotificationPrompt}
+  handleNo={hideNotificationPrompt}
+  handleYes={handleWantsNotifications}
+/>
 
 <style>
   .countdown {

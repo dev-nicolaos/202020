@@ -2,7 +2,7 @@
 
 html, body, a, button, div, span, h1, h2, label, input, li, ul  {
   border: none;
-  font-family: inherit;
+  font: inherit;
   line-height: 1;
   margin: 0;
   padding: 0;
@@ -37,12 +37,14 @@ body {
 
 .button {
   background: var(--theme);
-  border: none;
+  border: 2px solid var(--theme);
   color: var(--white);
   cursor: pointer;
   padding: .5em 1em;
   border-radius: var(--default-border-radius);
 }
+
+.button.secondary { background: var(--black); }
 
 .link { color: var(--theme); }
 
