@@ -4,17 +4,17 @@
     requestPermission,
     scheduleNotification,
   } from "./notifications";
+  import { formatTime, THIRTY_SECONDS, TWENTY_MINUTES } from "./time";
   import NotificationPrompt from "./NotificationPrompt.svelte";
-
-  const TWENTY_MINUTES_IN_MILLISECONDS = 1200000;
 
   // STATE
   let frameId;
   let hasSeenNotificationPrompt = false;
   let shouldRepeat = false;
   let showingNotificationPrompt = false;
-  let timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
-  $: counting = !(timeRemaining === TWENTY_MINUTES_IN_MILLISECONDS);
+  let timeRemaining = TWENTY_MINUTES;
+  $: counting = !(timeRemaining === TWENTY_MINUTES);
+  $: formattedTime = formatTime(timeRemaining);
   // END STATE
 
   const hideNotificationPrompt = () => {
@@ -30,11 +30,11 @@
   const resetCountdown = () => {
     cancelNotification();
     cancelAnimationFrame(frameId);
-    timeRemaining = TWENTY_MINUTES_IN_MILLISECONDS;
+    timeRemaining = TWENTY_MINUTES;
   };
 
   const startCountdown = () => {
-    const targetTime = performance.now() + TWENTY_MINUTES_IN_MILLISECONDS;
+    const targetTime = performance.now() + TWENTY_MINUTES;
 
     if (scheduleNotification(targetTime) && !hasSeenNotificationPrompt) {
       showingNotificationPrompt = true;
@@ -63,23 +63,25 @@
       startCountdown();
     }
   };
-
-  /**
-   * @param {number} time
-   * @returns {string}
-   */
-  const formatTime = (time) => {
-    const formattingDate = new Date(time);
-    const seconds = formattingDate.getSeconds();
-    return `${formattingDate.getMinutes()}:${
-      seconds < 10 ? `0${seconds}` : seconds
-    }`;
-  };
 </script>
 
 <main class="countdown">
-  <div class="countdown_timer">{formatTime(timeRemaining)}</div>
-  <button class="button" on:click={handleClick} type="button">
+  <div
+    aria-label={`${formattedTime[0]} minutes and ${formattedTime[1]} seconds remaining`}
+    aria-live={counting && timeRemaining % THIRTY_SECONDS < 1000
+      ? "polite"
+      : "off"}
+    class="countdown_timer"
+    role="timer"
+  >
+    {formattedTime.join(":")}
+  </div>
+  <button
+    aria-label={`${counting ? "Reset" : "Start"} countdown`}
+    class="button"
+    on:click={handleClick}
+    type="button"
+  >
     {counting ? "Reset" : "Start"}
   </button>
   <label class="countdown_auto-repeat">
@@ -88,11 +90,12 @@
   </label>
 </main>
 
-<NotificationPrompt
-  show={showingNotificationPrompt}
-  handleNo={hideNotificationPrompt}
-  handleYes={handleWantsNotifications}
-/>
+{#if showingNotificationPrompt}
+  <NotificationPrompt
+    handleNo={hideNotificationPrompt}
+    handleYes={handleWantsNotifications}
+  />
+{/if}
 
 <style>
   .countdown {

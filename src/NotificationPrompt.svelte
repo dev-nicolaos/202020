@@ -1,10 +1,10 @@
 <script>
-  export let show;
+  import { fly } from "svelte/transition";
   export let handleNo;
   export let handleYes;
 </script>
 
-<div aria-hidden={!show}>
+<div transition:fly={{ y: 200 }}>
   <span>Want to be notified when it's time to let your eyes rest?</span>
   <button class="button secondary" on:click={handleNo} type="button">No</button>
   <button class="button" on:click={handleYes} type="button">Yes</button>
@@ -24,7 +24,7 @@
     max-inline-size: 80%;
     padding: 1em;
     position: fixed;
-    transform: translate(-50%, 0);
+    transform: translateX(-50%);
     transition: transform 300ms;
   }
 
@@ -33,10 +33,6 @@
       align-items: center;
       grid-auto-flow: column;
     }
-  }
-
-  div[aria-hidden="true"] {
-    transform: translate(-50%, 20em);
   }
 
   span {

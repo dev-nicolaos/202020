@@ -22,6 +22,13 @@ html {
   font-size: 1em;
 }
 
+@media (min-width: 800px) and (min-height: 800px) {
+  html { font-size: 1.25em; }
+}
+@media (min-width: 1200px) and (min-height: 1200px) {
+  html { font-size: 1.5em; }
+}
+
 html, body {
 	inline-size: 100%;
 	min-block-size: 100vh;
@@ -81,4 +88,7 @@ body {
   outline: none;
 }
 
-.heading { line-height: 2; }
+.heading {
+  line-height: 2;
+  text-align: center;
+}
