@@ -1,6 +1,7 @@
 * { box-sizing: border-box; }
 
-html, body, a, button, div, span, h1, h2, label, input, li, ul  {
+html, body, a, aside, button, div, footer, h1, h2,
+header, input, label, li, main, section, span, ul {
   border: none;
   font: inherit;
   line-height: 1;
@@ -91,4 +92,16 @@ body {
 .heading {
   line-height: 2;
   text-align: center;
+}
+
+main > .heading {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-block-end: 2em;
+}
+
+#countdown {
+  display: grid;
+  gap: 2em;
+  justify-items: center;
 }

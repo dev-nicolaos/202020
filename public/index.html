@@ -18,11 +18,6 @@
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#4679ad">
 
     <style>
-      body > .heading {
-        font-size: 1.5em;
-        font-style: italic;
-      }
-
       /* Prevent layout shift*/
       #countdown-target.loading { block-size: 15em; }
     </style>
@@ -32,14 +27,16 @@
   </head>
 
   <body>
-    <h1 class="heading">Every 20 minutes, look at something 20 feet away for 20 seconds</h1>
+    <main>
+      <h1 class="heading">Every 20 minutes, look at something 20 feet away for 20 seconds</h1>
 
-    <noscript style="text-align: center">
-      Javascript is required for the countdown and reminder functionality to work.
-    </noscript>
-    <div id="countdown-target" class="loading"></div>
+      <noscript style="text-align: center">
+        Javascript is required for the countdown and reminder functionality to work.
+      </noscript>
+      <div id="countdown" class="loading"></div>
+    </main>
 
-    <section class="support">
+    <aside class="support">
       <h1 class="heading">Support for the 20-20-20 Rule</h1>
       <ul class="support_items">
         <li class="support_item">
@@ -54,6 +51,6 @@
           <a class="link" href="https://opto.ca/health-library/the-20-20-20-rule">Canadian Association of Optometrists</a>
         </li>
       </ul>
-    </section>
+    </aside>
   </body>
 </html>

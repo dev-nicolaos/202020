@@ -65,46 +65,36 @@
   };
 </script>
 
-<main class="countdown">
-  <div
-    aria-label={`${formattedTime[0]} minutes and ${formattedTime[1]} seconds remaining`}
-    aria-live={counting && timeRemaining % THIRTY_SECONDS < 1000
-      ? "polite"
-      : "off"}
-    class="countdown_timer"
-    role="timer"
-  >
-    {formattedTime.join(":")}
-  </div>
-  <button
-    aria-label={`${counting ? "Reset" : "Start"} countdown`}
-    class="button"
-    on:click={handleClick}
-    type="button"
-  >
-    {counting ? "Reset" : "Start"}
-  </button>
-  <label class="countdown_auto-repeat">
-    Auto repeat countdown
-    <input bind:checked={shouldRepeat} type="checkbox" class="checkbox" />
-  </label>
-</main>
-
+<div
+  aria-label={`${formattedTime[0]} minutes and ${formattedTime[1]} seconds remaining`}
+  aria-live={counting && timeRemaining % THIRTY_SECONDS < 1000
+    ? "polite"
+    : "off"}
+  class="countdown_timer"
+  role="timer"
+>
+  {formattedTime.join(":")}
+</div>
+<button
+  aria-label={`${counting ? "Reset" : "Start"} countdown`}
+  class="button"
+  on:click={handleClick}
+  type="button"
+>
+  {counting ? "Reset" : "Start"}
+</button>
 {#if showingNotificationPrompt}
   <NotificationPrompt
     handleNo={hideNotificationPrompt}
     handleYes={handleWantsNotifications}
   />
 {/if}
+<label class="countdown_auto-repeat">
+  Auto repeat countdown
+  <input bind:checked={shouldRepeat} type="checkbox" class="checkbox" />
+</label>
 
 <style>
-  .countdown {
-    /* TODO: use flex once gap in flex has enough support */
-    display: grid;
-    gap: 2em;
-    justify-items: center;
-  }
-
   .countdown_timer {
     font-size: 6rem;
   }

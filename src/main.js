@@ -1,6 +1,6 @@
 import App from "./App.svelte";
 
-const countdownTarget = document.getElementById("countdown-target");
+const countdownTarget = document.getElementById("countdown");
 new App({ target: countdownTarget });
 countdownTarget.classList.remove("loading");
 
