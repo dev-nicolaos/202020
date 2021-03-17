@@ -14,12 +14,14 @@
   div {
     background: var(--black);
     border: 1px solid var(--white);
-    border-radius: 0.25em;
+    border-radius: var(--default-border-radius);
     bottom: 2em;
+    inset-block-end: 2em;
     display: grid;
     gap: 1em;
     inline-size: max-content;
     left: 50%;
+    inset-inline-start: 50%;
     line-height: 1.4;
     max-inline-size: 80%;
     padding: 1em;

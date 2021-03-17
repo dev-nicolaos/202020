@@ -95,10 +95,13 @@ body {
 }
 
 main > .heading {
+  font-family:  'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 1.5rem;
   font-style: italic;
   margin-block-end: 2em;
 }
+
+main > .heading .twenty { font-weight: bold; }
 
 #countdown {
   display: grid;

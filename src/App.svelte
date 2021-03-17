@@ -96,7 +96,8 @@
 
 <style>
   .countdown_timer {
-    font-size: 6rem;
+    font-size: 5rem;
+    font-weight: bold;
   }
 
   .button {

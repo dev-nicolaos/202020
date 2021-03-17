@@ -2,7 +2,6 @@ const STATIC_CACHE_NAME = "202020-cache-v3";
 
 const STATIC_ASSET_ROUTES = [
   "/",
-  "/dist/main.css",
   "/dist/main.js",
   "/favicon.ico",
   "/index.html",
