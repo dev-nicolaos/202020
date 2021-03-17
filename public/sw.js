@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = "202020-cache-v3";
+const STATIC_CACHE_NAME = "202020-cache-v4";
 
 const STATIC_ASSET_ROUTES = [
   "/",

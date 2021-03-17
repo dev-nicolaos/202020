@@ -14,7 +14,6 @@
   let showingNotificationPrompt = false;
   let timeRemaining = TWENTY_MINUTES;
   $: counting = !(timeRemaining === TWENTY_MINUTES);
-  $: formattedTime = formatTime(timeRemaining);
   // END STATE
 
   const hideNotificationPrompt = () => {
@@ -66,22 +65,16 @@
 </script>
 
 <div
-  aria-label={`${formattedTime[0]} minutes and ${formattedTime[1]} seconds remaining`}
   aria-live={counting && timeRemaining % THIRTY_SECONDS < 1000
     ? "polite"
     : "off"}
   class="countdown_timer"
   role="timer"
 >
-  {formattedTime.join(":")}
+  <span class="visually-hidden">00:</span>{formatTime(timeRemaining)}
 </div>
-<button
-  aria-label={`${counting ? "Reset" : "Start"} countdown`}
-  class="button"
-  on:click={handleClick}
-  type="button"
->
-  {counting ? "Reset" : "Start"}
+<button class="button" on:click={handleClick} type="button">
+  {counting ? "Reset" : "Start"}<span class="visually-hidden">countdown</span>
 </button>
 {#if showingNotificationPrompt}
   <NotificationPrompt
