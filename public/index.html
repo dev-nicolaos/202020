@@ -1,21 +1,3 @@
-<!--
-  20-20-20: A simple web app that reminds you to give your eyes a break
-  Copyright (C) 2020 Nicolaos Skimas
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <https://www.gnu.org/licenses/>.
--->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,26 +17,26 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#4679ad">
 
-    <link rel="stylesheet" href="/css/app.css">
-    <script type="module" src="/js/app.js"></script>
+    <style>
+      /* Prevent layout shift*/
+      #countdown.loading { block-size: 14em; }
+    </style>
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/support.css">
+    <script type="module" src="/dist/main.js"></script>
   </head>
 
   <body>
-    <div class="banner">
-      <span class="banner_message">We need your permission to notify you when it's time to take a break</span>
-      <button class="banner_close"><img src="icons/close-icon.svg" alt="Close banner" /></button>
-    </div>
+    <main>
+      <h1 class="heading">Every <span class="twenty">20 minutes</span>, look at something <span class="twenty">20 feet away</span> for <span class="twenty">20 seconds</span></h1>
 
-    <main class="countdown">
-      <div class="countdown_timer">20:00</div>
-      <button id="control" class="button">Start</button>
-      <label class="countdown_auto-repeat">
-        Auto repeat countdown
-        <input type="checkbox" name="repeat" class="checkbox"/>
-      </label>
+      <noscript style="text-align: center">
+        Javascript is required for the countdown and reminder functionality to work.
+      </noscript>
+      <div id="countdown" class="loading"></div>
     </main>
 
-    <section class="support">
+    <aside class="support">
       <h1 class="heading">Support for the 20-20-20 Rule</h1>
       <ul class="support_items">
         <li class="support_item">
@@ -69,6 +51,6 @@
           <a class="link" href="https://opto.ca/health-library/the-20-20-20-rule">Canadian Association of Optometrists</a>
         </li>
       </ul>
-    </section>
+    </aside>
   </body>
 </html>

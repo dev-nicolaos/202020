@@ -1,5 +1,6 @@
 [build]
-  publish = "src"
+  command = "npm run build"
+  publish = "build"
 
 # Redirect default Netlify subdomain to primary domain
 [[redirects]]
